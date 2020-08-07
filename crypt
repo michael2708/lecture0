@@ -1,0 +1,110 @@
+//creating player object
+var player1;
+var player2;
+player1 = {
+	name: "Kandra",
+	health: 50,
+	place: "The Dungeon of Doom",
+	items: ["a dusty key","a piece of cheese"]
+};
+
+player2 = {
+	name: "Dax",
+	health: 40,
+	place: "The Old Library",
+	items: ["a rusty key", "The Sword of Destiny",]
+};
+
+//string functions
+var longSt;
+var spacer = {};
+spacer.blank=function () {
+	return " ";
+}; 
+spacer.newLine=function () {
+	return "\n";
+};
+
+spacer.line=function(length, character) {
+	var longSt = "=========================================";
+	longSt += "--------------------------------------------";
+	longSt += "********************************************";
+	longSt += "++++++++++++++++++++++++++++++++++++++++++++";
+	longSt += "                                            ";
+	
+	length = Math.min(40, length);
+	length = Math.max(0, length);
+	
+	return longSt.substr(longSt.indexOf(character), length);
+};
+
+spacer.wrap=function (text, length, character) {
+	var padLength = length - text.length - 3 ;
+	var wrapText = character + " " + text ;
+	wrapText += spacer.line(padLength, " ");
+	wrapText += character;
+	return wrapText ;
+};
+
+spacer.box=function (text, length, character) {
+	var textBox = spacer.line(length, character) + spacer.newLine();
+	textBox += spacer.wrap (text, length, character) + spacer.newLine();
+	textBox += spacer.line(length, character) + spacer.newLine();
+	return textBox;
+};
+
+
+var showPlayerName;
+var showPlayerHealth;
+var showPlayerPlace;
+var showPlayerItems;
+var getBorder;
+
+showPlayerName = function (player) {
+	return player.name;
+};
+showPlayerHealth = function (player) {
+	return player.name + " has " + player.health ;
+};
+showPlayerPlace = function (player) {
+	return player.name + " is in " + player.place ;
+};
+showPlayerItems = function (player) {
+	var itemsString = "Items are:" + spacer.newLine();
+	player.items.forEach(function (item) {
+		itemsString =+ "-" + item + spacer.newLine();
+	});
+	return itemsString;
+};
+getBorder = function () {
+	return "-----------------------------------";
+};
+
+// function to display players details
+var getPlayerInfo = function (player, character) {
+	var place = showPlayerPlace(player);
+	var health = showPlayerHealth(player);
+	var longest = Math.max(place.length, health.length) + 4 ;
+	var playerInfo ;
+	playerInfo = spacer.box(showPlayerName(player), longest, character);
+	playerInfo += spacer.wrap(place, longest, character);
+	playerInfo += spacer.newLine() + spacer.line(longest, character);
+	playerInfo += spacer.newLine() + spacer.wrap(health, longest, character);
+	playerInfo += spacer.newLine() + spacer.line(longest, character);
+	playerInfo += spacer.newLine();
+	playerInfo += " " + showPlayerItems(player);
+	playerInfo += spacer.newLine();
+	playerInfo += spacer.line(longest, character);
+	playerInfo += spacer.newLine();
+	return playerInfo;
+};
+
+console.log(getPlayerInfo(player1, "*"));
+//console.log(getPlayerInfo(player2, "="));
+
+
+
+
+
+
+
