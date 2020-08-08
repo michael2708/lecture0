@@ -100,7 +100,7 @@ var getPlayerInfo = function (player, character) {
 };
 
 console.log(getPlayerInfo(player1, "*"));
-//console.log(getPlayerInfo(player2, "="));
+console.log(getPlayerInfo(player2, "="));
 
 
 
